@@ -1,6 +1,6 @@
 {
   "name": "generate-rsa-keypair",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "author": "Linus Unnebäck <linus@folkdatorn.se>",
   "main": "index.js",
