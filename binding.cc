@@ -10,8 +10,6 @@ int bits = 2048;
 unsigned long exponent = 65537;
 
 NAN_METHOD(generate_rsa_keypair) {
-  Nan::HandleScope scope;
-
   RSA *rsa;
   BIO *bio;
   char *raw;
@@ -25,7 +23,7 @@ NAN_METHOD(generate_rsa_keypair) {
   rsa = RSA_generate_key(bits, exponent, NULL, NULL);
 
   if (rsa == NULL) {
-    Nan::ThrowError("Failed to generate key");
+    return Nan::ThrowError("Failed to generate key");
   }
 
   /* Allocate BIO */
@@ -33,14 +31,14 @@ NAN_METHOD(generate_rsa_keypair) {
   bio = BIO_new(BIO_s_mem());
 
   if (bio == NULL) {
-    Nan::ThrowError("Failed to create bio");
+    return Nan::ThrowError("Failed to create bio");
   }
 
   /* Dump private key */
 
   if (!PEM_write_bio_RSAPrivateKey(bio, rsa, NULL, NULL, 0, NULL, NULL)) {
     BIO_vfree(bio);
-    Nan::ThrowError("Failed to write private key");
+    return Nan::ThrowError("Failed to write private key");
   }
 
   rawLength = BIO_get_mem_data(bio, &raw);
@@ -52,14 +50,14 @@ NAN_METHOD(generate_rsa_keypair) {
   bio = BIO_new(BIO_s_mem());
 
   if (bio == NULL) {
-    Nan::ThrowError("Failed to create bio");
+    return Nan::ThrowError("Failed to create bio");
   }
 
   /* Dump public key */
 
   if (!PEM_write_bio_RSA_PUBKEY(bio, rsa)) {
     BIO_vfree(bio);
-    Nan::ThrowError("Failed to write public key");
+    return Nan::ThrowError("Failed to write public key");
   }
 
   rawLength = BIO_get_mem_data(bio, &raw);
