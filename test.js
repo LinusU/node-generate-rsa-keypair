@@ -1,18 +1,18 @@
 /* eslint-env mocha */
 
-var assert = require('assert')
-var crypto = require('crypto')
+const assert = require('assert')
+const crypto = require('crypto')
 
-var generateRSAKeypair = require('./')
+const generateRSAKeypair = require('./')
 
-const MESSAGE = new Buffer('This is a test!')
+const MESSAGE = Buffer.from('This is a test!')
 
 describe('generate-rsa-keypair', function () {
   it('should generate a keypair', function () {
-    var pair = generateRSAKeypair()
+    const pair = generateRSAKeypair()
 
-    var encrypted = crypto.publicEncrypt(pair.public, MESSAGE)
-    var decrypted = crypto.privateDecrypt(pair.private, encrypted)
+    const encrypted = crypto.publicEncrypt(pair.public, MESSAGE)
+    const decrypted = crypto.privateDecrypt(pair.private, encrypted)
 
     assert.ok(decrypted.equals(MESSAGE))
   })
