@@ -2,18 +2,18 @@
   "name": "generate-rsa-keypair",
   "version": "0.2.0",
   "license": "MIT",
-  "author": "Linus Unnebäck <linus@folkdatorn.se>",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/LinusU/node-generate-rsa-keypair.git"
+  "repository": "LinusU/node-generate-rsa-keypair",
+  "files": [
+    "binding.c",
+    "binding.gyp",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "standard && mocha"
   },
   "devDependencies": {
     "mocha": "^6.1.4",
     "standard": "^12.0.1"
-  },
-  "scripts": {
-    "test": "standard && mocha"
   },
   "engines": {
     "node": ">=8.6.0"
